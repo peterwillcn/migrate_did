@@ -2,8 +2,8 @@ var http=require('http');
 
 const getBlockRQ = require("./getblockReq")
 
-module.exports = function getblockhashReq(height) {
-    console.log('-----getblockhashReq begin-----');
+module.exports = function getblockhashReq(height,nonce) {
+    console.log('-----getblockhashReq begin-----', height, "nonce", nonce);
     var body = {
         "method": "getblockhash",
         "params": {"height" :height}
@@ -38,7 +38,7 @@ module.exports = function getblockhashReq(height) {
             //console.log('-----getblockhashReq resBody-----',resultObject);
             curBlockHash =  resultObject.result
             //console.log('-----getblockhashReq curBlockHash-----',curBlockHash);
-            getBlockRQ(curBlockHash)
+            getBlockRQ(curBlockHash, nonce)
         });
         req.on('error', function(e) {
             // TODO: handle error.

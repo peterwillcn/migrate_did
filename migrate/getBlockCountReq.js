@@ -2,13 +2,37 @@ var http=require('http');
 
 //const getBlockRQ = require("./getblockReq")
 //479015+2
-const startBlockHeight =  308704
-const endBlockHeight = startBlockHeight + 1
+const startBlockHeight =  276676//276676
+const endBlockHeight =  startBlockHeight +20//0 //500082
 
 const getblockhashRq = require("./getblockhashReq");
 
+// function sleep(delay) {
+//     var start = (new Date()).getTime();
+//     while ((new Date()).getTime() - start < delay) {
+//         // 使用  continue 实现；
+//         continue;
+//     }
+// }
+
+//async
+async function callGetBlock(curBlockCount)  {
+    var index = 0
+    for (var i = startBlockHeight ; i < curBlockCount; i++) {
+        await sleep(100);
+        getblockhashRq(i, index);
+        index = index+1;
+    }
+}
+
+const sleep = function (ms){
+    return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+
+
 module.exports = function getblockhashReq(height) {
-    console.log('-----getblockhashReq begin-----');
+    console.log('-----getblockhashReq begin-----', height);
     var body = {
         "method": "getblockcount","params": {}
     };
@@ -43,10 +67,13 @@ module.exports = function getblockhashReq(height) {
             //test
             curBlockCount =  endBlockHeight
             console.log('-----curBlockCount-----',curBlockCount);
-
-            for (var i = startBlockHeight ; i < curBlockCount; i++) {
-                getblockhashRq(i);
-            }
+            // var index = 0
+            // for (var i = startBlockHeight ; i < curBlockCount; i++) {
+            //     sleep(1000)
+            //     getblockhashRq(i, index);
+            //     index = index+1;
+            // }
+            callGetBlock(curBlockCount);
         });
         req.on('error', function(e) {
             // TODO: handle error.

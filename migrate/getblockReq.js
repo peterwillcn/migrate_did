@@ -13,18 +13,18 @@ function isDIDTx(txType)  {
     return false
 }
 
-function dealBlock(block) {
+function dealBlock(block,nonce) {
     console.log("dealBlock begin",block.height);
     for(var i = 0; i < block.tx.length; i++) {
         if (isDIDTx(block.tx[i].type)){
             console.log("############第 ",i ,"个交易",block.tx[i])
-            sendmigrateDIDTX(block.tx[i].payload)
+            sendmigrateDIDTX(block.tx[i].payload, nonce)
         }
     }
     console.log("dealBlock end");
 }
 
-module.exports = function getblockReq(blockHash) {
+module.exports = function getblockReq(blockHash,nonce) {
     console.log('-----getblockReq begin-----');
     var body = {
         "method": "getblock",
@@ -59,7 +59,7 @@ module.exports = function getblockReq(blockHash) {
         res.on('end', function() {
             var resultObject = JSON.parse(responseString);
             curBlock =  resultObject.result
-            dealBlock(curBlock)
+            dealBlock(curBlock, nonce)
         });
         req.on('error', function(e) {
             // TODO: handle error.
