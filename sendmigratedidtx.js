@@ -42,17 +42,17 @@ acc = web3.eth.accounts.decrypt({"address":"53781e106a2e3378083bdcede1874e5c2a72
 
 
 
-module.exports = async function sendMigrateDIDTX(didTXPayload,nonce) {
+module.exports = async function sendMigrateDIDTX(payloadStr,nonce) {
 //     //创建did payload
 //     createDID = '{"header":{"specification":"elastos/did/1.0","operation":"create"},"payload":"eyJpZCI6ImRpZDplbGFzdG9zOmlvdU1TWEtITmN3ZGJQemI1OHBYcG1HQkRCeHJNemZxMmMiLCJwdWJsaWNLZXkiOlt7ImlkIjoiI3ByaW1hcnkiLCJwdWJsaWNLZXlCYXNlNTgiOiIyOThjTGNzVlpxUk56Vm5NdkZUdXIyZFNhaXRpM3VzUUpBQUhWY0ZSQVI5QzUifV0sImF1dGhlbnRpY2F0aW9uIjpbIiNwcmltYXJ5Il0sInZlcmlmaWFibGVDcmVkZW50aWFsIjpbeyJpZCI6IiNlbGFzdG9zLWFjYWRlbXkiLCJ0eXBlIjpbIkFwcGxpY2F0aW9uUHJvZmlsZUNyZWRlbnRpYWwiLCJHYW1lQXBwbGljYXRpb25Qcm9maWxlQ3JlZGVudGlhbCIsIlNlbGZQcm9jbGFpbWVkQ3JlZGVudGlhbCJdLCJpc3N1YW5jZURhdGUiOiIyMDIwLTAzLTEwVDAxOjQ3OjE5WiIsImV4cGlyYXRpb25EYXRlIjoiMjAyMC0wMy0yNVQwMTo0NzoxOVoiLCJjcmVkZW50aWFsU3ViamVjdCI6eyJhY3Rpb24iOiJMZWFybiBFbGFzdG9zIGJ5IHBsYXlpbmcgZ2FtZXMgYWdhaW5zdCBmcmllbmRzIiwiYXBwcGFja2FnZSI6InRlY2gudHV1bS50ZXN0LmFjYWRlbXkiLCJhcHB0eXBlIjoiZWxhc3Rvc2Jyb3dzZXIiLCJpZGVudGlmaWVyIjoiZWxhc3Rvcy1hY2FkZW15In0sInByb29mIjp7InZlcmlmaWNhdGlvbk1ldGhvZCI6IiNwcmltYXJ5Iiwic2lnbmF0dXJlIjoiemNsQmxLc24zSkc1a2NIWERMNDZOa2xENkpmejh6M0dXWTVqZndCYjJWVFdPNVNZOWtZMHZFZDRBSnB6dnhNa2FfdlRhdDhzNkc1T2FUYkpuXzRiaUEifX1dLCJleHBpcmVzIjoiMjAyNS0wMy0xMFQwMTowNTowN1oiLCJwcm9vZiI6eyJjcmVhdGVkIjoiMjAyMC0wMy0xMFQwMTo0NzoxOVoiLCJzaWduYXR1cmVWYWx1ZSI6IjVVN1RVZFhhQ09JMDFubFBxemh2b19mbHJpLTFDZk5qR1dISWdUVUxwdl9KWTNWYi1ZYURDZkhrTHZnTlg4bFJNQVhUeWUtS0ZVbTQzSnZOUnZxMXNBIn19","proof":{"type":"ECDSAsecp256r1","verificationMethod":"did:elastos:iouMSXKHNcwdbPzb58pXpmGBDBxrMzfq2c#primary","signature":"XDkYZd5IIWKP1WUWFGldz6TJb00j_1eXZKemyJi0xldWxcdLv46xUTvOa2ptrRcfGU3_BXR2swHCTBGqNIui-g"},"DIDDoc":{"id":"did:elastos:iouMSXKHNcwdbPzb58pXpmGBDBxrMzfq2c","publicKey":[{"id":"#primary","type":"","controller":"","publicKeyBase58":"298cLcsVZqRNzVnMvFTur2dSaiti3usQJAAHVcFRAR9C5"}],"authentication":["#primary"],"verifiableCredential":[{"id":"#elastos-academy","type":["ApplicationProfileCredential","GameApplicationProfileCredential","SelfProclaimedCredential"],"issuanceDate":"2020-03-10T01:47:19Z","expirationDate":"2020-03-25T01:47:19Z","credentialSubject":{"action":"Learn Elastos by playing games against friends","apppackage":"tech.tuum.test.academy","apptype":"elastosbrowser","identifier":"elastos-academy"},"proof":{"created":"","verificationMethod":"#primary","signature":"zclBlKsn3JG5kcHXDL46NklD6Jfz8z3GWY5jfwBb2VTWO5SY9kY0vEd4AJpzvxMka_vTat8s6G5OaTbJn_4biA"}}],"expires":"2025-03-10T01:05:07Z","proof":{"created":"2020-03-10T01:47:19Z","signatureValue":"5U7TUdXaCOI01nlPqzhvo_flri-1CfNjGWHIgTULpv_JY3Vb-YaDCfHkLvgNX8lRMAXTye-KFUm43JvNRvq1sA"}},"CredentialDoc":null,"Ticket":null}'
 //
 // //停用id payload
 //     deactiveDID = '{"header":{"specification":"elastos/did/1.0","operation":"deactivate"},"payload":"did:elastos:iTWqanUovh3zHfnExGaan4SJAXG3DCZC6j","proof":{"type":"ECDSAsecp256r1","verificationMethod":"did:elastos:iTWqanUovh3zHfnExGaan4SJAXG3DCZC6j#default","signature":"p33_nbN8xqfbyAnedKJNjYqQDuWnfqhn5NXiFqkd_ASujcj7xn3hu0fM2dnUvpm1S5lUWtNn-bIinO4Qt4TH3w"},"DIDDoc":null,"CredentialDoc":null,"Ticket":null}'
 
-    console.log("sendMigrateDIDTX begin didTXPayload ", didTXPayload);
-
-    payloadStr = JSON.stringify(didTXPayload)
-    console.log("sendMigrateDIDTX begin payloadStr ", payloadStr);
+    // console.log("sendMigrateDIDTX begin didTXPayload ", didTXPayload);
+    //
+    // payloadStr = JSON.stringify(didTXPayload)
+    // console.log("sendMigrateDIDTX begin payloadStr ", payloadStr);
 
     cdata  = contract.methods.operationDID(payloadStr).encodeABI();
 

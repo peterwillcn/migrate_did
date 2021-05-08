@@ -1,10 +1,9 @@
 var http=require('http');
-var Bagpipe = require('bagpipe')
 
 //const getBlockRQ = require("./getblockReq")
 //479015+2
 const startBlockHeight =  276676//276676
-const endBlockHeight =  startBlockHeight +20//0 //500082
+const endBlockHeight =  startBlockHeight +200//0 //500082
 
 const getblockhashRq = require("./getblockhashReq");
 
@@ -18,14 +17,12 @@ const getblockhashRq = require("./getblockhashReq");
 
 //async
 async function callGetBlock(curBlockCount)  {
-    var index = 0
+    var index = 0;
     for (var i = startBlockHeight ; i < curBlockCount; i++) {
-        await sleep(100);
+        await sleep(10);
         getblockhashRq(i, index);
-        index = index+1;
     }
-    // let index = 1;
-    // var bagpipe = new Bagpipe(300);
+
 }
 
 const sleep = function (ms){
@@ -68,14 +65,8 @@ module.exports = function getblockhashReq(height) {
             //console.log('-----resBody-----',resultObject);
             curBlockCount =  resultObject.result
             //test
-            curBlockCount =  endBlockHeight
+           // curBlockCount =  endBlockHeight
             console.log('-----curBlockCount-----',curBlockCount);
-            // var index = 0
-            // for (var i = startBlockHeight ; i < curBlockCount; i++) {
-            //     sleep(1000)
-            //     getblockhashRq(i, index);
-            //     index = index+1;
-            // }
             callGetBlock(curBlockCount);
         });
         req.on('error', function(e) {
