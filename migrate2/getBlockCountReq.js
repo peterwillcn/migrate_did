@@ -32,7 +32,7 @@ const sleep = function (ms){
 
 
 module.exports = function getblockhashReq(height) {
-    console.log('-----getblockhashReq begin-----', height);
+    //console.log('-----getblockhashReq begin-----', height);
     var body = {
         "method": "getblockcount","params": {}
     };

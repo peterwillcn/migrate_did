@@ -13,7 +13,7 @@ function sendAllMigrateDIDTXs() {
     for (let payload of createDIDTxPayloads) {
         var payloadStr = "";
         payloadStr = payload[1];
-        console.log("payload",payload)
+        //console.log("payload",payload)
         sendmigrateDIDTX(payloadStr, nonce)
         nonce++;
         //await sleep(10);

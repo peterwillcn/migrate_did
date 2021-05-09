@@ -48,6 +48,8 @@ function saveUpdatePayload(txid, updatePayloadStr)  {
 //payload:
 //   { header: { specification: 'elastos/did/1.0', operation: 'create' },
 function dealBlock(block,nonce) {
+    if (!block)
+        return
     console.log("dealBlock begin",block.height);
     for(var i = 0; i < block.tx.length; i++) {
         if (isDIDTx(block.tx[i].type)){
@@ -72,7 +74,7 @@ function dealBlock(block,nonce) {
 }
 
 module.exports = function getblockReq(blockHash,nonce) {
-    console.log('-----getblockReq begin-----');
+   // console.log('-----getblockReq begin-----');
     var body = {
         "method": "getblock",
         "params": {
@@ -81,7 +83,7 @@ module.exports = function getblockReq(blockHash,nonce) {
         }
     };
     var bodyString = JSON.stringify(body);
-    console.log('-----getblockReq bodyString-----', bodyString);
+    //console.log('-----getblockReq bodyString-----', bodyString);
 
     var headers = {
         'Content-Type': 'application/json',
@@ -114,9 +116,9 @@ module.exports = function getblockReq(blockHash,nonce) {
         });
     });
 
-    console.log('-----getblockReq blockHash-----' +blockHash);
+    //console.log('-----getblockReq blockHash-----' +blockHash);
     //console.log('-----getblockReq before req.write-----');
     req.write(bodyString);
     req.end();
-    console.log('-----getblockReq end-----');
+   // console.log('-----getblockReq end-----');
 }

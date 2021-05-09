@@ -63,9 +63,10 @@ module.exports = async function sendMigrateDIDTX(payloadStr,nonce) {
         console.log("sendMigrateDIDTX  signTransaction coming");
         stx = res;
         console.log(stx.rawTransaction);
-        var promise = web3.eth.sendSignedTransaction(stx.rawTransaction).then(console.log)
-        console.log("promise ", promise);
+        //var promise =
+        web3.eth.sendSignedTransaction(stx.rawTransaction).then(console.log)
+       // console.log("promise ", promise);
     });
-    console.log("sendMigrateDIDTX end didTXPayload ", payloadStr);
+    //console.log("sendMigrateDIDTX end didTXPayload ", payloadStr);
 
 }

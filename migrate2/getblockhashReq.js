@@ -3,7 +3,7 @@ var http=require('http');
 const getBlockRQ = require("./getblockReq")
 
 module.exports = function getblockhashReq(height,nonce) {
-    console.log('-----getblockhashReq begin-----', height, "nonce", nonce);
+    //console.log('-----getblockhashReq begin-----', height, "nonce", nonce);
     var body = {
         "method": "getblockhash",
         "params": {"height" :height}
