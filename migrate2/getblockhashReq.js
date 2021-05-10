@@ -15,8 +15,8 @@ module.exports = function getblockhashReq(height,nonce) {
         'Content-Length': bodyString.length
     };
     var options = {
-        host: 'api.elastos.io',
-        port: 20606,
+        host: '127.0.0.1',//api.elastos.io
+        port: 21606,//20606
         path: '/Config',
         method: 'POST',
         headers: headers

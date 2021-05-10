@@ -3,26 +3,38 @@ var fs = require('fs');
 
 const sendmigrateDIDTX = require("../sendmigratedidtx")
 
-var createDIDTxPayloads = readOneFileToArr("./create.csv")
 
-sendAllMigrateDIDTXs();
+//sendAllMigrateDIDTXs(file);
 
 //async
-function sendAllMigrateDIDTXs() {
+module.exports = async function sendAllMigrateDIDTXs(file) {
+    var createDIDTxPayloads = readOneFileToArr(file)//"./create.csv"
     var nonce =0
     for (let payload of createDIDTxPayloads) {
+        //await sleep(1000);
+        sleep(10);
         var payloadStr = "";
+        var txid = "";
+
         payloadStr = payload[1];
-        //console.log("payload",payload)
+        txid = payload[0];
+        console.log("#### nonce",nonce, " txid ", txid)
         sendmigrateDIDTX(payloadStr, nonce)
         nonce++;
-        //await sleep(10);
     }
 }
 
-const sleep = function (ms){
-    return new Promise(resolve => setTimeout(resolve, ms))
+function sleep(delay) {
+    var start = (new Date()).getTime();
+    while ((new Date()).getTime() - start < delay) {
+        // 使用  continue 实现；
+        continue;
+    }
 }
+
+// const sleep = function (ms){
+//     return new Promise(resolve => setTimeout(resolve, ms))
+// }
 
 function readOneFileToArr(filePath) {
     const table = []

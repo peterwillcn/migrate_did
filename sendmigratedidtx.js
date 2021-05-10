@@ -60,7 +60,7 @@ module.exports = async function sendMigrateDIDTX(payloadStr,nonce) {
     tx.nonce = nonce;
 
     acc.signTransaction(tx).then((res)=>{
-        console.log("sendMigrateDIDTX  signTransaction coming");
+        console.log("#### sendMigrateDIDTX  signTransaction coming", nonce);
         stx = res;
         console.log(stx.rawTransaction);
         //var promise =
