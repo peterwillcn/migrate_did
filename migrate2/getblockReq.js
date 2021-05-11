@@ -50,7 +50,7 @@ function saveUpdatePayload(txid, updatePayloadStr)  {
 function dealBlock(block,nonce) {
     if (!block)
         return
-    console.log("dealBlock begin",block.height);
+    //console.log("dealBlock begin",block.height);
     for(var i = 0; i < block.tx.length; i++) {
         if (isDIDTx(block.tx[i].type)){
             payloadStr = JSON.stringify(block.tx[i].payload)
@@ -70,7 +70,7 @@ function dealBlock(block,nonce) {
             // });
         }
     }
-    console.log("dealBlock end");
+    //console.log("dealBlock end");
 }
 
 module.exports = function getblockReq(blockHash,nonce) {
