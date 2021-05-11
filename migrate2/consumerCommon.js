@@ -29,27 +29,61 @@ function recurseSendMigrateDIDTX(payloads,index) {
    // nonce++;
 }
 
+
+function writeFile(file, data){
+    fs.writeFile(file, data, function (error) {
+        if (error) {
+            console.log('写入失败'+file)
+        } else {
+            console.log('写入成功了'+file)
+        }
+    })
+}
+
+function removeSame(payloads){
+    const resultTable = []
+
+    for (let payload of payloads) {
+        var payloadStr = "";
+        var txid = "";
+
+        payloadStr = payload[1];
+        txid = payload[0];
+        if (resultTable.length == 0){
+            resultTable.push(payload);
+        }else{
+            var payloadStrInner = "";
+            var txidInner = "";
+            var needPush =true;
+            for (let payloadInner of resultTable){
+                txidInner= payloadInner[0];
+                payloadStrInner =payloadInner[1]
+                if (payloadStr == payloadStrInner){
+                    console.log("排重", "txid", txid, "txidInner ", txidInner);
+                    needPush = false
+                    break;
+                }
+            }
+            if (needPush){
+                resultTable.push(payload);
+            }
+        }
+
+        //console.log("#### nonce",nonce, " txid ", txid)
+        //console.log("payloadStr", payloadStr)
+
+    }
+    return resultTable;
+}
+
 //async
-module.exports = async function sendAllMigrateDIDTXs(file) {
+module.exports =  function sendAllMigrateDIDTXs(file) {
     var createDIDTxPayloads = readOneFileToArr(file)//"./create.csv"
-    // var nonce =0
-    // for (let payload of createDIDTxPayloads) {
-    //     //await sleep(1000);
-    //     sleep(10);
-    //     var payloadStr = "";
-    //     var txid = "";
-    //
-    //     payloadStr = payload[1];
-    //     txid = payload[0];
-    //     //console.log("#### nonce",nonce, " txid ", txid)
-    //     //console.log("payloadStr", payloadStr)
-    //     sendmigrateDIDTX(payloadStr, nonce)
-    //     nonce++;
-    // }
-    // for (var i = 0; i < rows.length; i++) {
-    //
-    // }
-    recurseSendMigrateDIDTX(createDIDTxPayloads, 0)
+    //writeFile("mult.txt", createDIDTxPayloads)
+    result = removeSame(createDIDTxPayloads);
+    //writeFile("single.txt", result)
+
+    recurseSendMigrateDIDTX(result, 0)
 }
 
 function sleep(delay) {
