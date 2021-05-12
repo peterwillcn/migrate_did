@@ -7,7 +7,7 @@ const sendmigrateDIDTX = require("../sendmigratedidtx")
 //sendAllMigrateDIDTXs(file);
 
 
-function recurseSendMigrateDIDTX(payloads,index) {
+function recurseSendMigrateDIDTX(payloads,nonce,index) {
     // web3.eth.getTransactionCount(acc).then((index) =>
     //{
         console.log("######## getTransactionCount");
@@ -23,7 +23,7 @@ function recurseSendMigrateDIDTX(payloads,index) {
         txid = payloads[index][0];
         console.log("#### nonce",index, " txid ", txid)
         console.log("payloadStr", payloadStr)
-        sendmigrateDIDTX(payloadStr, index,payloads, recurseSendMigrateDIDTX)
+        sendmigrateDIDTX.sendMigrateDIDTX(payloadStr, nonce,index,payloads, recurseSendMigrateDIDTX)
     //});
 
    // nonce++;
@@ -88,7 +88,11 @@ module.exports =  function sendAllMigrateDIDTXs(file) {
     result = removeSame(createDIDTxPayloads);
     //writeFile("single.txt", result)
 
-    recurseSendMigrateDIDTX(result, 0)
+    sendmigrateDIDTX.getTransactionCount(function (nonce) {
+        console.log("sendAllMigrateDIDTXs getTransactionCount nonce", nonce)
+        recurseSendMigrateDIDTX(result, nonce, 0)
+    })
+
 }
 
 function sleep(delay) {
