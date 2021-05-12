@@ -39,9 +39,9 @@ function writeFile(file, data){
         }
     })
 }
-
 function removeSame(payloads){
     const resultTable = []
+    const maxPayloadSize =32*1024 -1024
 
     for (let payload of payloads) {
         var payloadStr = "";
@@ -50,8 +50,13 @@ function removeSame(payloads){
         payloadStr = payload[1];
         txid = payload[0];
         if (resultTable.length == 0){
-            resultTable.push(payload);
+            if (payloadStr.length <=maxPayloadSize ){
+                resultTable.push(payload);
+            }
         }else{
+            if (payloadStr.length >maxPayloadSize ){
+                continue;
+            }
             var payloadStrInner = "";
             var txidInner = "";
             var needPush =true;

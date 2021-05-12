@@ -64,8 +64,8 @@ module.exports =  function sendMigrateDIDTX(payloadStr,nonce,payloads, callback)
 
     //console.log("sendMigrateDIDTX begin cdata ", cdata);
 
-
-    tx = {data: cdata, to: contract.options.address, from: acc.address, gasPrice:1000000000000, gas:3000000}
+    console.log("#### payloadStr.length ", payloadStr.length)
+    tx = {data: cdata, to: contract.options.address, from: acc.address, gasPrice:1000000000000, gas:8000000}
     tx.nonce = nonce;
      //web3.eth.estimateGas(tx).then((gasLimit)=>{
       //tx.gas=gasLimit;
@@ -80,8 +80,8 @@ module.exports =  function sendMigrateDIDTX(payloadStr,nonce,payloads, callback)
                web3.eth.getTransactionCount(acc.address).then((nextNonce) => {
                   console.log( "lbq nonce", nonce, "nextNonce", nextNonce);
                   callback(payloads,nextNonce)
-              });
-          })
+              }).catch(console.log);
+          }).catch(console.log);
          //  console.log(promise);
          // callback(payloads)
 
@@ -93,7 +93,7 @@ module.exports =  function sendMigrateDIDTX(payloadStr,nonce,payloads, callback)
          //     console.log("lbq nonce", nonce);
          //
          // });
-       });
+       }).catch(console.log);
        //console.log("nonce",nonce,"gasLimit", gasLimit);
        //console.log("sendMigrateDIDTX end didTXPayload ", payloadStr);
      //});
