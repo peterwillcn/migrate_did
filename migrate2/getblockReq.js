@@ -51,7 +51,6 @@ function saveUpdatePayload(txid, updatePayloadStr)  {
 function dealBlock(block,nonce) {
     if (!block)
         return
-    //console.log("dealBlock begin",block.height);
     for(var i = 0; i < block.tx.length; i++) {
         if (isDIDTx(block.tx[i].type)){
             payloadStr = JSON.stringify(block.tx[i].payload)
@@ -60,18 +59,8 @@ function dealBlock(block,nonce) {
             }else{
                 saveUpdatePayload(block.tx[i].txid, payloadStr);
             }
-            //console.log("############第 ",i ,"个交易",block.tx[i])
-            //sendmigrateDIDTX(block.tx[i].payload, nonce)
-
-            // var csvContent = "";
-            // csvContent += block.tx[i].txid + ',';
-            // csvContent += payloadStr + '\n';
-            // fs.appendFile('./data.csv', csvContent, function(err) {
-            //     if (err) console.log(err, '---->csv<---')
-            // });
         }
     }
-    //console.log("dealBlock end");
 }
 
 module.exports = function getblockReq(blockHash,nonce) {
@@ -116,10 +105,6 @@ module.exports = function getblockReq(blockHash,nonce) {
             console.log('-----getblockReq error-------',e);
         });
     });
-
-    //console.log('-----getblockReq blockHash-----' +blockHash);
-    //console.log('-----getblockReq before req.write-----');
     req.write(bodyString);
     req.end();
-   // console.log('-----getblockReq end-----');
 }

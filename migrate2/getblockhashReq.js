@@ -46,10 +46,6 @@ module.exports = function getblockhashReq(height,nonce) {
             console.log('-----getblockhashReq error-------',e);
         });
     });
-
-    //console.log('-----getblockhashReq-----' +height);
-    //console.log('-----getblockhashReq before req.write-----');
     req.write(bodyString);
     req.end();
-    //console.log('-----getblockhashReq end-----');
 }

@@ -12,15 +12,10 @@ var dirtyTxIDs =[
 ]
 
 
-//sendAllMigrateDIDTXs(file);
-
 
 function recurseSendMigrateDIDTX(payloads,nonce,index) {
-    // web3.eth.getTransactionCount(acc).then((index) =>
-    //{
         console.log("######## getTransactionCount");
-        console.log("lbq index", index);
-
+        console.log(" index", index);
         if (index >= payloads.length){
             return
         }
@@ -32,21 +27,8 @@ function recurseSendMigrateDIDTX(payloads,nonce,index) {
         console.log("#### nonce",index, " txid ", txid)
         console.log("payloadStr", payloadStr)
         sendmigrateDIDTX.sendMigrateDIDTX(payloadStr, nonce,index,payloads, recurseSendMigrateDIDTX)
-    //});
-
-   // nonce++;
 }
 
-
-function writeFile(file, data){
-    fs.writeFile(file, data, function (error) {
-        if (error) {
-            console.log('写入失败'+file)
-        } else {
-            console.log('写入成功了'+file)
-        }
-    })
-}
 function exludDirtyData(payloads){
     const resultTable = []
 
@@ -102,10 +84,6 @@ function removeSame(payloads){
                 resultTable.push(payload);
             }
         }
-
-        //console.log("#### nonce",nonce, " txid ", txid)
-        //console.log("payloadStr", payloadStr)
-
     }
     return resultTable;
 }
@@ -130,18 +108,6 @@ module.exports =  function sendAllMigrateDIDTXs(file) {
     })
 
 }
-
-function sleep(delay) {
-    var start = (new Date()).getTime();
-    while ((new Date()).getTime() - start < delay) {
-        // 使用  continue 实现；
-        continue;
-    }
-}
-
-// const sleep = function (ms){
-//     return new Promise(resolve => setTimeout(resolve, ms))
-// }
 
 function readOneFileToArr(filePath) {
     const table = []

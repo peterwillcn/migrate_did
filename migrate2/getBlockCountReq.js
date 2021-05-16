@@ -8,13 +8,6 @@ const endBlockHeight =  startBlockHeight +200//0 //500082
 
 const getblockhashRq = require("./getblockhashReq");
 
-// function sleep(delay) {
-//     var start = (new Date()).getTime();
-//     while ((new Date()).getTime() - start < delay) {
-//         // 使用  continue 实现；
-//         continue;
-//     }
-// }
 
 //async
 async function callGetBlock(curBlockCount)  {
