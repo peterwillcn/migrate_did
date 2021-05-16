@@ -1,4 +1,5 @@
 var http=require('http');
+const config = require("./config");
 
 //const getBlockRQ = require("./getblockReq")
 //479015+2
@@ -43,8 +44,8 @@ module.exports = function getblockhashReq(height) {
         'Content-Length': bodyString.length
     };
     var options = {
-        host: '127.0.0.1',// api.elastos.io
-        port: 21606,//20606
+        host: config.source_host,// api.elastos.io
+        port: config.source_port,//20606
         path: '/Config',
         method: 'POST',
         headers: headers

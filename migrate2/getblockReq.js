@@ -1,5 +1,6 @@
 var http=require('http');
 const fs = require('fs');
+const config = require("./config");
 
 //const sendmigrateDIDTX = require("../sendmigratedidtx")
 
@@ -90,8 +91,8 @@ module.exports = function getblockReq(blockHash,nonce) {
         'Content-Length': bodyString.length
     };
     var options = {
-        host: '127.0.0.1',//api.elastos.io
-        port: 21606,//20606
+        host: config.source_host,//api.elastos.io
+        port: config.source_port,//20606
         path: '/Config',
         method: 'POST',
         headers: headers
