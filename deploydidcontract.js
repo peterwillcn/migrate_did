@@ -50,9 +50,14 @@ const cdata="0x608060405234801561001057600080fd5b50610222806100206000396000f3fe6
 const data = contract.deploy({data: cdata}).encodeABI();
 const tx = {data: data, gas: "2000000", gasPrice: "2000000000"};
 
+web3.eth.getBalance(acc.address).then(function(data) {
+	console.log("address:",acc.address, "value", data , "eth", data/1e18)
+})
+
 acc.signTransaction(tx).then((stx) => {
 	console.log("sign over", stx.rawTransaction)
     web3.eth.sendSignedTransaction(stx.rawTransaction).on("transactionHash", console.log)
         .then(console.log)
         .catch(console.log);
 }).catch(console.log);
+
