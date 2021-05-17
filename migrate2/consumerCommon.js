@@ -61,11 +61,18 @@ function removeSame(payloads){
         payloadStr = payload[1];
         txid = payload[0];
         if (resultTable.length == 0){
+
             if (payloadStr.length <=maxPayloadSize && payloadStr.length > 0){
                 resultTable.push(payload);
             }
+            if (payloadStr.length >maxPayloadSize ){
+                console.log("calc_size txid ", txid, "payloadStr.length ", payloadStr.length);
+
+                continue;
+            }
         }else{
             if (payloadStr.length >maxPayloadSize ){
+                console.log("calc_size txid ", txid, "payloadStr.length ", payloadStr.length);
                 continue;
             }
             if(payloadStr.length == 0){
@@ -91,9 +98,13 @@ function removeSame(payloads){
     return resultTable;
 }
 
+function len_sort(a ,b) {
+    return (a[1].length - b[1].length);
+}
 //async
 module.exports =  function sendAllMigrateDIDTXs(file) {
     var createDIDTxPayloads = readOneFileToArr(file)//"./create.csv"
+    createDIDTxPayloads.sort(len_sort);
     //writeFile("mult.txt", createDIDTxPayloads)
     result = removeSame(createDIDTxPayloads);
     console.log("after remove Same ", result.length);

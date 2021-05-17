@@ -1,7 +1,6 @@
 
 const process = require('process');
 const consumer = require("./consumerCommon");
-
 try{
     consumer("./create.csv")
 }
