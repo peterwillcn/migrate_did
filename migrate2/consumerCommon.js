@@ -61,11 +61,14 @@ function removeSame(payloads){
         payloadStr = payload[1];
         txid = payload[0];
         if (resultTable.length == 0){
-            if (payloadStr.length <=maxPayloadSize ){
+            if (payloadStr.length <=maxPayloadSize && payloadStr.length > 0){
                 resultTable.push(payload);
             }
         }else{
             if (payloadStr.length >maxPayloadSize ){
+                continue;
+            }
+            if(payloadStr.length == 0){
                 continue;
             }
             var payloadStrInner = "";
