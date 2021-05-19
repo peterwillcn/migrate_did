@@ -46,25 +46,61 @@ acc = web3.eth.accounts.decrypt({"address":"53781e106a2e3378083bdcede1874e5c2a72
 function sendMigrateDIDTX(payloadStr,nonce,index,payloads, callback) {
     cdata  = contract.methods.operationDID(payloadStr).encodeABI();
     console.log("#### payloadStr.length ", payloadStr.length)
-    tx = {data: cdata, to: contract.options.address, from: acc.address, gasPrice:1000000000000, gas:8000000}
+
+    tx = {data: cdata, to: contract.options.address, from: acc.address, gasPrice:90000000000000}
     tx.nonce = nonce;
-     acc.signTransaction(tx).then((res)=>{
-            console.log("sendMigrateDIDTX  signTransaction coming");
-            stx = res;
-            console.log(stx.rawTransaction);
 
-           web3.eth.sendSignedTransaction(stx.rawTransaction).then(function (data ,err) {
-              console.log("sendSignedTransaction data", data,"err", err, " nonce " ,nonce);
-               web3.eth.getTransactionCount(acc.address).then((nextNonce) => {
-                  console.log( "lbq nonce", nonce, "nextNonce", nextNonce);
-                   index++;
-                  callback(payloads,nextNonce, index);
-              }).catch(console.log);
-          }).catch(console.log);
+    web3.eth.estimateGas(tx).then((gas)=> {
+        tx.gas = gas
+        console.log("gas", gas)
+        console.log("sendMigrateDIDTX  signTransaction coming");
+
+        web3.eth.sendTransaction(tx).then(function (data ,err) {
+            console.log("sendSignedTransaction data", data,"err", err, " nonce " ,nonce);
+            web3.eth.getTransactionCount(acc.address).then((nextNonce) => {
+                console.log( "lbq nonce", nonce, "nextNonce", nextNonce);
+                index++;
+                callback(payloads,nextNonce, index);
+            }).catch(console.log);
+        }).catch(console.log);
 
 
+    })
 
-       }).catch(console.log);
+    // tx = {data: cdata, to: contract.options.address, from: acc.address, gasPrice:10000000000000}
+    // tx.nonce = nonce;
+    // //tx = {data: cdata, to: contract.options.address, from: acc.address, gasPrice:90000000000000}
+    // //tx.nonce = nonce;
+    // web3.eth.estimateGas(tx).then((gas)=> {
+    //     tx.gas = gas
+    //     console.log("gas", gas, "txfee ", tx.gasPrice*gas)
+    //          console.log("sendMigrateDIDTX  signTransaction coming");
+    //     acc.signTransaction(tx).then((res)=>{
+    //         stx = res;
+    //         web3.eth.sendSignedTransaction(stx.rawTransaction).then(function (data ,err) {
+    //            console.log("sendSignedTransaction data", data,"err", err, " nonce " ,nonce);
+    //             web3.eth.getTransactionCount(acc.address).then((nextNonce) => {
+    //                console.log( "lbq nonce", nonce, "nextNonce", nextNonce);
+    //                 index++;
+    //                callback(payloads,nextNonce, index);
+    //            }).catch(console.log);
+    //        }).catch(console.log);
+    //     }).catch(console.log);
+    // })
+
+    // acc.signTransaction(tx).then((res)=>{
+    //     console.log("sendMigrateDIDTX  signTransaction coming");
+    //     stx = res;
+    //     console.log(stx.rawTransaction);
+    //    web3.eth.sendSignedTransaction(stx.rawTransaction).then(function (data ,err) {
+    //       console.log("sendSignedTransaction data", data,"err", err, " nonce " ,nonce);
+    //        web3.eth.getTransactionCount(acc.address).then((nextNonce) => {
+    //           console.log( "lbq nonce", nonce, "nextNonce", nextNonce);
+    //            index++;
+    //           callback(payloads,nextNonce, index);
+    //       }).catch(console.log);
+    //   }).catch(console.log);
+    // }).catch(console.log);
 }
 
 //module.exports =

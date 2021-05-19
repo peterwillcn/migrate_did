@@ -51,8 +51,10 @@ function exludDirtyData(payloads){
 }
 function removeSame(payloads){
     const resultTable = []
-    //const maxPayloadSize =80*1000*1000 -1024
-    const maxPayloadSize =32*1024 -1024
+    const maxPayloadSize =80*1000*1000 -1024
+    //137170
+    //const maxPayloadSize =137216
+    //const maxPayloadSize =32*1024 -1024
 
     for (let payload of payloads) {
         var payloadStr = "";
