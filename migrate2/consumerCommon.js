@@ -106,6 +106,7 @@ function len_sort(a ,b) {
 //async
 module.exports =  function sendAllMigrateDIDTXs(file) {
     var createDIDTxPayloads = readOneFileToArr(file)//"./create.csv"
+    //sort
     createDIDTxPayloads.sort(len_sort);
     //writeFile("mult.txt", createDIDTxPayloads)
     result = removeSame(createDIDTxPayloads);
