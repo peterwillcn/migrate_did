@@ -75,8 +75,9 @@ function sendMigrateDIDTX(payloadStr,nonce,index,payloads, callback) {
     var baseFee =  txBaseFee.getBaseFee().toNumber()
     console.log("####baseFee#### ", baseFee)
 
-    web3.eth.estimateGas(tx).then((gas)=> {
+   // web3.eth.estimateGas(tx).then((gas)=> {
         //149195760
+        var gas = baseFee;
         console.log("gas", gas, "txfee ", tx.gasPrice*gas, "baseFee", baseFee)
         if (gas < baseFee){
             gas = baseFee;
@@ -96,7 +97,7 @@ function sendMigrateDIDTX(payloadStr,nonce,index,payloads, callback) {
                }).catch(console.log);
            }).catch(console.log);
         }).catch(console.log);
-    })
+    //})
 
     // acc.signTransaction(tx).then((res)=>{
     //     console.log("sendMigrateDIDTX  signTransaction coming");
