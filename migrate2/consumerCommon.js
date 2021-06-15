@@ -51,7 +51,7 @@ function exludDirtyData(payloads){
 }
 function removeSame(payloads){
     const resultTable = []
-    const maxPayloadSize =80*1000*1000 -1024
+    const maxPayloadSize =600 *1024
     //137170
     //const maxPayloadSize =137216
     //const maxPayloadSize =32*1024 -1024
@@ -107,7 +107,7 @@ function len_sort(a ,b) {
 module.exports =  function sendAllMigrateDIDTXs(file) {
     var createDIDTxPayloads = readOneFileToArr(file)//"./create.csv"
     //sort
-    createDIDTxPayloads.sort(len_sort);
+    //createDIDTxPayloads.sort(len_sort);
     //writeFile("mult.txt", createDIDTxPayloads)
     result = removeSame(createDIDTxPayloads);
     console.log("after remove Same ", result.length);
