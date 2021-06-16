@@ -10,6 +10,13 @@ var dirtyTxIDs =[
     "75f4d0578a34bb4b4075eeac78c734b4e6d19d78fed21663a2c6f64b8862f7c9",
     "b0a87d0e2fa26254818087310d9fc1d9bdefa0df0e7ad654ca439d8e22fdf2aa",
     "27edd35af78ce0ab4195e17a7147fc973a39b213d98bb287682945c3e3880ab0",
+//    "a2372d950c0da9a5d215245e575660d78fe287fc67c446ab2af95661cc18f4ce",
+//    "15eb789472352fa2f411a4f09db70a754a82d46ad2d600e38df77c051c6262cf",
+//    "914d675c4365cecc52c71229c361b067cb321c31ea87e89291f850c09d4ccb39",
+//    "605d9e31677b16da593509519a38b136f531dd18569fc09be97d58b11973b6db",
+//    "fe8b0c6ae362cd2e748b03a70af68aa93aac5dadfaeb9585f788acc5f95d6957",
+//    "a1e10d1031c86643932296c53e278b3cc7c8ddeb9413f2fe4adf26c473ca397e",
+//    "5ad80a5c352d07874bf4044c6f64b35d2df6a923bad05e21d84ed6ea157f86da",
 ]
 
 
@@ -123,7 +130,8 @@ module.exports =  function sendAllMigrateDIDTXs(file) {
     //writeFile("single.txt", result)
 
     sendmigrateDIDTX.getTransactionCount(function (nonce) {
-        console.log("sendAllMigrateDIDTXs getTransactionCount nonce", nonce)
+	var t1 = new Date().getTime();
+        console.log("sendAllMigrateDIDTXs getTransactionCount nonce", t1, nonce)
         recurseSendMigrateDIDTX(result, nonce, 0)
     })
 

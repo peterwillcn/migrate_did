@@ -1,7 +1,7 @@
 "use strict";
 
 const Web3 = require("web3");
-const web3 = new Web3("http://127.0.0.1:1111");
+const web3 = new Web3("http://127.0.0.1:21636");
 const ctrt = require("./ctrt");
 
 const contract = new web3.eth.Contract(ctrt.abi);
