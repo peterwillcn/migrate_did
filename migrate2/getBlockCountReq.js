@@ -3,7 +3,7 @@ const config = require("./config");
 
 //const getBlockRQ = require("./getblockReq")
 //479015+2
-const startBlockHeight =  276676//276676
+const startBlockHeight =  276676 //276676
 const endBlockHeight =  startBlockHeight +200//0 //500082
 
 const getblockhashRq = require("./getblockhashReq");
@@ -15,6 +15,8 @@ async function callGetBlock(curBlockCount)  {
     for (var i = startBlockHeight ; i < curBlockCount; i++) {
         await sleep(100);
         getblockhashRq(i, index);
+	var t1 = new Date().getTime();
+        console.log('-----processBlock----',t1 ,i);
     }
 
 }

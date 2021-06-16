@@ -1,0 +1,4 @@
+*.log
+*.csv
+node_modules
+migrate2/data
