@@ -9,6 +9,7 @@ var dirtyTxIDs =[
     "7808e3e3e4d66588b09428e18f42e29e6f22531d5a0fea7cfcf13b18fbcfa8a6",
     "75f4d0578a34bb4b4075eeac78c734b4e6d19d78fed21663a2c6f64b8862f7c9",
     "b0a87d0e2fa26254818087310d9fc1d9bdefa0df0e7ad654ca439d8e22fdf2aa",
+    "27edd35af78ce0ab4195e17a7147fc973a39b213d98bb287682945c3e3880ab0",
 ]
 
 
@@ -106,6 +107,8 @@ function len_sort(a ,b) {
 //async
 module.exports =  function sendAllMigrateDIDTXs(file) {
     var createDIDTxPayloads = readOneFileToArr(file)//"./create.csv"
+    console.log("before remove Same ", createDIDTxPayloads.length);
+
     //sort
     //createDIDTxPayloads.sort(len_sort);
     //writeFile("mult.txt", createDIDTxPayloads)
@@ -113,7 +116,7 @@ module.exports =  function sendAllMigrateDIDTXs(file) {
     console.log("after remove Same ", result.length);
    // console.log("result ", result);
 
-    result = exludDirtyData(result)
+    //result = exludDirtyData(result)
     console.log("after exludDirtyData ", result.length);
    // console.log("result ", result);
 
@@ -121,7 +124,7 @@ module.exports =  function sendAllMigrateDIDTXs(file) {
 
     sendmigrateDIDTX.getTransactionCount(function (nonce) {
         console.log("sendAllMigrateDIDTXs getTransactionCount nonce", nonce)
-        recurseSendMigrateDIDTX(result, nonce, 0)
+        recurseSendMigrateDIDTX(result, nonce, 170)
     })
 
 }
