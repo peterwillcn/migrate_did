@@ -116,7 +116,7 @@ module.exports =  function sendAllMigrateDIDTXs(file) {
     console.log("after remove Same ", result.length);
    // console.log("result ", result);
 
-    //result = exludDirtyData(result)
+    result = exludDirtyData(result)
     console.log("after exludDirtyData ", result.length);
    // console.log("result ", result);
 
@@ -124,7 +124,7 @@ module.exports =  function sendAllMigrateDIDTXs(file) {
 
     sendmigrateDIDTX.getTransactionCount(function (nonce) {
         console.log("sendAllMigrateDIDTXs getTransactionCount nonce", nonce)
-        recurseSendMigrateDIDTX(result, nonce, 170)
+        recurseSendMigrateDIDTX(result, nonce, 0)
     })
 
 }
